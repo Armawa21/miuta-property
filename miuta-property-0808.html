@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MIUTA Property | Curated Properties in Indonesia</title>
+<meta name="description" content="MIUTA Property is a curated collection of homes, guest houses, rental spaces and land opportunities across Indonesia.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --white:#FAF8F3;
+    --sand:#EDE6D8;
+    --stone:#D9D0BE;
+    --charcoal:#2A2A28;
+    --grey:#4A4642;
+    --ink-soft: rgba(42,42,40,0.62);
+    --ink-faint: rgba(42,42,40,0.4);
+    --line: rgba(42,42,40,0.12);
+    --accent:#6E7A63;
+    --accent-2:#B98A6A;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--white); color:var(--charcoal);
+    font-family:'Inter', sans-serif; font-weight:300;
+    line-height:1.6; -webkit-font-smoothing:antialiased; overflow-x:hidden;
+  }
+  h1,h2,h3,.serif{font-family:'Fraunces', serif; font-weight:400; letter-spacing:-0.01em;}
+  a{color:inherit; text-decoration:none;}
+  button{font-family:inherit; border:none; background:none; cursor:pointer; color:inherit;}
+  .eyebrow{font-size:0.72rem; letter-spacing:0.18em; text-transform:uppercase; font-weight:400;}
+  .lbl{font-size:0.72rem; letter-spacing:0.12em; text-transform:uppercase;}
+
+  /* grain */
+  body::before{
+    content:""; position:fixed; inset:0; pointer-events:none; z-index:999; opacity:0.035;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* ===== Nav ===== */
+  header{
+    position:fixed; top:0; left:0; right:0; z-index:200;
+    transition:background .4s ease, padding .4s ease, border-color .4s ease;
+    border-bottom:1px solid transparent;
+  }
+  header.solid{ background:rgba(250,248,243,0.92); backdrop-filter:blur(10px); border-color:var(--line); }
+  nav{ max-width:1320px; margin:0 auto; padding:30px 40px; display:flex; justify-content:space-between; align-items:center; transition:padding .4s ease; }
+  header.solid nav{ padding:18px 40px; }
+  .logo{ font-size:1.05rem; letter-spacing:0.03em; color:var(--charcoal); }
+  header:not(.solid) .logo, header:not(.solid) .nav-links a, header:not(.solid) .enquire{ color:var(--white); }
+  .nav-links{ display:flex; gap:32px; font-size:0.76rem; letter-spacing:0.1em; text-transform:uppercase; }
+  .nav-links a{ opacity:0.82; transition:opacity .2s; }
+  .nav-links a:hover{ opacity:1; }
+  .enquire{ font-size:0.76rem; letter-spacing:0.1em; text-transform:uppercase; display:flex; align-items:center; gap:6px; }
+  .burger{ display:none; flex-direction:column; gap:5px; }
+  .burger span{ width:22px; height:1px; background:currentColor; }
+
+  /* ===== Hero (home) ===== */
+  .hero{
+    height:100vh; position:relative; display:flex; flex-direction:column; justify-content:flex-end;
+    overflow:hidden; color:var(--white);
+  }
+  .hero-bg{
+    position:absolute; inset:-6% -2%; z-index:0;
+    background:
+      radial-gradient(circle at 22% 18%, rgba(185,138,106,0.28), transparent 55%),
+      linear-gradient(155deg,#3A3A34 0%, #23231F 55%, #171714 100%);
+  }
+  .hero-content{ position:relative; z-index:2; max-width:1320px; margin:0 auto; width:100%; padding:0 40px 90px; }
+  .hero h1{ font-size:clamp(2.6rem,6.2vw,5rem); font-weight:300; line-height:1.06; margin-bottom:22px; max-width:820px; }
+  .hero p{ max-width:420px; font-size:0.98rem; opacity:0.82; margin-bottom:34px; }
+  .hero-actions{ display:flex; gap:18px; flex-wrap:wrap; align-items:center; }
+  .btn{ font-size:0.78rem; letter-spacing:0.1em; text-transform:uppercase; padding:15px 28px; display:inline-flex; align-items:center; gap:8px; transition:opacity .2s, background .25s; }
+  .btn-solid{ background:var(--white); color:var(--charcoal); }
+  .btn-solid:hover{ background:var(--sand); }
+  .btn-outline{ border:1px solid rgba(250,248,243,0.4); }
+  .btn-outline:hover{ border-color:var(--white); }
+  .btn-dark{ background:var(--charcoal); color:var(--white); }
+  .btn-dark:hover{ background:var(--grey); }
+  .scroll-ind{ position:absolute; bottom:26px; left:50%; transform:translateX(-50%); z-index:2; text-align:center; font-size:0.68rem; letter-spacing:0.16em; opacity:0.7; }
+  .scroll-ind .bar{ width:1px; height:34px; background:rgba(250,248,243,0.5); margin:10px auto 0; overflow:hidden; }
+  .scroll-ind .bar i{ display:block; width:100%; height:40%; background:var(--white); animation:scrollmove 1.8s infinite ease-in-out; }
+  @keyframes scrollmove{ 0%{transform:translateY(-100%);} 100%{transform:translateY(250%);} }
+
+  /* ===== Page hero (sub pages) ===== */
+  .page-hero{
+    height:56vh; min-height:400px; position:relative; display:flex; align-items:flex-end; color:var(--white); overflow:hidden;
+  }
+  .page-hero-content{ position:relative; z-index:2; max-width:1320px; margin:0 auto; width:100%; padding:0 40px 60px; }
+  .page-hero h1{ font-size:clamp(2.2rem,5vw,3.6rem); font-weight:300; margin-bottom:14px; }
+  .page-hero p{ max-width:440px; font-size:0.94rem; opacity:0.82; }
+
+  /* ===== Reveal ===== */
+  .reveal{ opacity:0; transform:translateY(26px); transition:opacity .9s cubic-bezier(.2,.7,.2,1), transform .9s cubic-bezier(.2,.7,.2,1); }
+  .reveal.in{ opacity:1; transform:translateY(0); }
+
+  /* ===== Section shells ===== */
+  section{ max-width:1320px; margin:0 auto; padding:120px 40px; }
+  section.tight{ padding-top:80px; padding-bottom:80px; }
+  .section-label{ color:var(--accent); margin-bottom:20px; }
+  .section-title{ font-size:clamp(1.7rem,3vw,2.6rem); font-weight:300; max-width:760px; margin-bottom:6px; }
+
+  /* Intro */
+  .intro{ text-align:center; }
+  .intro .statement{ font-size:clamp(1.7rem,3.4vw,2.9rem); max-width:820px; margin:0 auto 26px; line-height:1.28; }
+  .intro p{ max-width:460px; margin:0 auto; color:var(--ink-soft); font-size:0.95rem; }
+  .intro .principles{ margin-top:8px; font-family:'Fraunces',serif; font-size:1.1rem; }
+
+  /* Collection editorial */
+  .collection-grid{ display:grid; grid-template-columns:repeat(6,1fr); gap:14px; margin-top:56px; }
+  .col-card{ position:relative; overflow:hidden; cursor:pointer; }
+  .col-card .img{ position:absolute; inset:0; transition:transform .8s cubic-bezier(.2,.7,.2,1); }
+  .col-card:hover .img{ transform:scale(1.04); }
+  .col-card::after{ content:""; position:absolute; inset:0; background:linear-gradient(0deg, rgba(20,20,18,0.55), transparent 55%); }
+  .col-card .info{ position:absolute; left:26px; right:26px; bottom:24px; z-index:2; color:var(--white); transition:transform .4s ease; }
+  .col-card:hover .info{ transform:translateY(-4px); }
+  .col-card .info .lbl{ opacity:0.75; margin-bottom:6px; }
+  .col-card .info h3{ font-size:1.4rem; font-weight:400; margin-bottom:6px; }
+  .col-card .info .cta{ font-size:0.76rem; letter-spacing:0.06em; display:flex; align-items:center; gap:6px; opacity:0.9; }
+  .col-card .info .cta .arrow{ transition:transform .25s ease; }
+  .col-card:hover .info .cta .arrow{ transform:translateX(4px); }
+  .c1{ grid-column:span 4; aspect-ratio:16/11; }
+  .c2{ grid-column:span 2; aspect-ratio:9/11; }
+  .c3{ grid-column:span 2; aspect-ratio:9/11; }
+  .c4{ grid-column:span 4; aspect-ratio:16/11; }
+
+  /* Developments */
+  .dev-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:26px; margin-top:56px; }
+  .dev-card .img{ aspect-ratio:4/3.2; position:relative; overflow:hidden; margin-bottom:18px; }
+  .dev-card .img > div{ position:absolute; inset:0; transition:transform .8s ease; }
+  .dev-card:hover .img > div{ transform:scale(1.04); }
+  .dev-card .status-tag{ position:absolute; top:16px; left:16px; background:rgba(250,248,243,0.92); color:var(--charcoal); padding:6px 12px; font-size:0.68rem; letter-spacing:0.08em; text-transform:uppercase; }
+  .dev-card h3{ font-size:1.2rem; margin-bottom:4px; transition:transform .3s ease; }
+  .dev-card:hover h3{ transform:translateY(-2px); }
+  .dev-card .loc{ font-size:0.85rem; color:var(--ink-faint); margin-bottom:14px; }
+  .dev-card .view{ font-size:0.76rem; letter-spacing:0.08em; text-transform:uppercase; display:flex; align-items:center; gap:6px; }
+  .dev-card:hover .view .arrow{ transform:translateX(4px); }
+  .arrow{ display:inline-block; transition:transform .25s ease; }
+
+  /* Where we are */
+  .where-list{ margin-top:50px; border-top:1px solid var(--line); }
+  .where-row{ display:flex; justify-content:space-between; align-items:center; padding:26px 0; border-bottom:1px solid var(--line); font-family:'Fraunces',serif; font-size:1.5rem; transition:padding-left .3s ease; }
+  .where-row:hover{ padding-left:14px; color:var(--accent); }
+  .where-row span{ font-family:'Inter',sans-serif; font-size:0.78rem; color:var(--ink-faint); letter-spacing:0.06em; }
+
+  /* Featured property */
+  .featured{ padding-top:0; }
+  .feat-wrap{ position:relative; aspect-ratio:16/8.5; overflow:hidden; }
+  .feat-wrap .img{ position:absolute; inset:0; transition:transform 1s ease; }
+  .feat-wrap:hover .img{ transform:scale(1.02); }
+  .feat-wrap::after{ content:""; position:absolute; inset:0; background:linear-gradient(90deg, rgba(20,20,18,0.55), transparent 60%); }
+  .feat-info{ position:absolute; left:44px; bottom:40px; z-index:2; color:var(--white); max-width:400px; }
+  .feat-info .lbl{ opacity:0.75; margin-bottom:14px; }
+  .feat-info h3{ font-size:2rem; margin-bottom:8px; }
+  .feat-info .meta{ font-size:0.85rem; opacity:0.85; margin-bottom:22px; }
+
+  /* Philosophy */
+  .philosophy{ text-align:center; background:var(--charcoal); color:var(--white); max-width:none; padding:140px 40px; }
+  .philosophy h2{ font-size:clamp(2rem,4.4vw,3.4rem); font-weight:300; margin-bottom:24px; letter-spacing:0.01em; }
+  .philosophy p{ max-width:480px; margin:0 auto; opacity:0.72; font-size:0.95rem; line-height:1.8; }
+
+  /* CTA band */
+  .cta-band{ text-align:center; background:var(--sand); max-width:none; padding:120px 40px; }
+  .cta-band h2{ font-size:clamp(1.9rem,4vw,3rem); margin-bottom:16px; }
+  .cta-band p{ max-width:440px; margin:0 auto 34px; color:var(--ink-soft); font-size:0.95rem; }
+  .cta-band .hero-actions{ justify-content:center; }
+
+  /* Property list (category pages) */
+  .list-intro{ max-width:640px; margin-bottom:60px; }
+  .list-intro .statement{ font-size:clamp(1.6rem,3vw,2.3rem); margin-bottom:16px; }
+  .list-intro p{ color:var(--ink-soft); font-size:0.95rem; }
+  .prop-list{ display:flex; flex-direction:column; }
+  .prop-row{ display:grid; grid-template-columns:0.9fr 1.1fr; gap:60px; padding:56px 0; border-top:1px solid var(--line); cursor:pointer; align-items:center; }
+  .prop-list .prop-row:last-child{ border-bottom:1px solid var(--line); }
+  .prop-row .img{ aspect-ratio:5/3.8; position:relative; overflow:hidden; }
+  .prop-row .img > div{ position:absolute; inset:0; transition:transform .8s ease; }
+  .prop-row:hover .img > div{ transform:scale(1.04); }
+  .prop-row .body .lbl{ color:var(--ink-faint); margin-bottom:14px; }
+  .prop-row h3{ font-size:1.7rem; margin-bottom:8px; transition:transform .3s ease; }
+  .prop-row:hover h3{ transform:translateX(6px); }
+  .prop-row .loc{ font-size:0.9rem; color:var(--ink-soft); margin-bottom:18px; }
+  .prop-row .meta-row{ display:flex; gap:22px; font-size:0.85rem; color:var(--ink-soft); margin-bottom:20px; flex-wrap:wrap; }
+  .prop-row .price-line{ font-family:'Fraunces',serif; font-size:1.15rem; margin-bottom:16px; }
+  .prop-row .price-line small{ font-family:'Inter',sans-serif; font-size:0.78rem; color:var(--ink-faint); }
+  .prop-row .status{ display:inline-flex; align-items:center; gap:7px; font-size:0.78rem; color:var(--accent); margin-bottom:18px; }
+  .prop-row .status i{ width:6px; height:6px; border-radius:50%; background:var(--accent); }
+  .prop-row .view{ font-size:0.76rem; letter-spacing:0.08em; text-transform:uppercase; display:flex; align-items:center; gap:6px; }
+
+  /* Detail page */
+  .detail-hero{ height:64vh; min-height:440px; position:relative; display:flex; align-items:flex-end; color:var(--white); }
+  .detail-hero-content{ position:relative; z-index:2; max-width:1320px; margin:0 auto; width:100%; padding:0 40px 56px; }
+  .detail-hero .lbl{ opacity:0.75; margin-bottom:12px; }
+  .detail-hero h1{ font-size:clamp(2rem,4.6vw,3.4rem); font-weight:300; margin-bottom:10px; }
+  .back-link{ position:absolute; top:110px; left:40px; z-index:5; font-size:0.78rem; letter-spacing:0.06em; text-transform:uppercase; color:var(--white); display:flex; align-items:center; gap:8px; opacity:0.85; }
+  .detail-grid{ display:grid; grid-template-columns:1.5fr 1fr; gap:70px; }
+  .detail-desc{ font-size:0.98rem; color:var(--ink-soft); line-height:1.85; max-width:520px; margin-bottom:44px; }
+  .feat-list{ display:grid; grid-template-columns:1fr 1fr; gap:16px 30px; }
+  .feat-list div{ font-size:0.9rem; padding-bottom:14px; border-bottom:1px solid var(--line); display:flex; justify-content:space-between; }
+  .feat-list div span:first-child{ color:var(--ink-faint); }
+  .gallery-strip{ display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin:60px 0 0; }
+  .gallery-strip .g{ aspect-ratio:4/3.4; position:relative; overflow:hidden; }
+  .gallery-strip .g > div{ position:absolute; inset:0; }
+  .price-box{ padding:30px; border:1px solid var(--line); margin-bottom:20px; }
+  .price-box .lbl{ color:var(--ink-faint); margin-bottom:10px; }
+  .price-box .amount{ font-family:'Fraunces',serif; font-size:1.8rem; }
+  .price-box .amount small{ font-family:'Inter',sans-serif; font-size:0.8rem; color:var(--ink-faint); }
+  .status-dot{ display:inline-flex; align-items:center; gap:7px; font-size:0.82rem; margin-top:16px; color:var(--accent); }
+  .status-dot i{ width:6px; height:6px; border-radius:50%; background:var(--accent); }
+  .cta-btn{ display:flex; align-items:center; justify-content:center; gap:10px; width:100%; padding:17px; background:var(--charcoal); color:var(--white); font-size:0.82rem; letter-spacing:0.06em; text-transform:uppercase; transition:background .25s; }
+  .cta-btn:hover{ background:var(--accent); }
+  .cta-note{ text-align:center; font-size:0.76rem; color:var(--ink-faint); margin-top:12px; }
+
+  /* About */
+  .about-principles{ display:grid; grid-template-columns:repeat(3,1fr); gap:50px; margin-top:70px; }
+  .about-principles .p-item .num{ color:var(--accent); margin-bottom:16px; }
+  .about-principles h3{ font-size:1.5rem; margin-bottom:12px; }
+  .about-principles p{ color:var(--ink-soft); font-size:0.92rem; }
+
+  /* Footer */
+  footer{ max-width:1320px; margin:0 auto; padding:90px 40px 50px; }
+  .footer-top{ display:flex; justify-content:space-between; padding-bottom:60px; border-bottom:1px solid var(--line); flex-wrap:wrap; gap:40px; }
+  footer .logo{ font-size:1.3rem; margin-bottom:10px; color:var(--charcoal); }
+  footer .tag{ color:var(--ink-soft); font-size:0.9rem; max-width:260px; }
+  .footer-col h4{ font-size:0.72rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:16px; font-weight:400; }
+  .footer-col a{ display:block; font-size:0.9rem; color:var(--ink-soft); margin-bottom:10px; }
+  .footer-bottom{ display:flex; justify-content:space-between; padding-top:30px; font-size:0.78rem; color:var(--ink-faint); flex-wrap:wrap; gap:10px; }
+
+  @media (max-width:900px){
+    .nav-links{ display:none; }
+    .burger{ display:flex; }
+    .collection-grid{ grid-template-columns:1fr 1fr; }
+    .c1,.c2,.c3,.c4{ grid-column:span 2; aspect-ratio:4/3.2; }
+    .dev-grid{ grid-template-columns:1fr; }
+    .prop-row{ grid-template-columns:1fr; gap:26px; }
+    .detail-grid{ grid-template-columns:1fr; gap:40px; }
+    .gallery-strip{ grid-template-columns:1fr 1fr; }
+    .about-principles{ grid-template-columns:1fr; gap:36px; }
+    section{ padding:80px 24px; }
+    .philosophy,.cta-band{ padding:90px 24px; }
+  }
+  @media (max-width:560px){
+    .feat-list, .gallery-strip{ grid-template-columns:1fr; }
+    nav, .hero-content, .page-hero-content, .detail-hero-content, footer, section{ padding-left:22px; padding-right:22px; }
+  }
+</style>
+</head>
+<body>
+
+<header id="header">
+  <nav>
+    <a href="#/" class="logo serif">MIUTA PROPERTY</a>
+    <div class="nav-links">
+      <a href="#/">Home</a>
+      <a href="#/category/guesthouse">Guest House</a>
+      <a href="#/category/homerent">Home Rent</a>
+      <a href="#/category/kost">Kost</a>
+      <a href="#/category/land">Land</a>
+      <a href="#/about">About Us</a>
+    </div>
+    <a class="enquire" id="nav-enquire" target="_blank">Enquire ↗</a>
+    <button class="burger" onclick="document.body.classList.toggle('menu-open')"><span></span><span></span><span></span></button>
+  </nav>
+</header>
+
+<div id="view"></div>
+
+<script>
+const WA_NUMBER = "6281234567890";
+const waLink = (text) => `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(text)}`;
+
+const tones = [
+  ["#4A5044","#23261F"], ["#5A4A3E","#2B211B"], ["#3E4A52","#1D2428"],
+  ["#4E4638","#252119"], ["#3B463E","#1B211C"], ["#54473C","#28211B"]
+];
+const tone = i => `linear-gradient(155deg, ${tones[i%tones.length][0]}, ${tones[i%tones.length][1]})`;
+
+const catMeta = {
+  guesthouse: { title:"Guest Houses", label:"Guest House", sub:"Thoughtfully selected spaces for short stays, long stays and memorable experiences.", statement:"Stay somewhere with character." },
+  homerent:   { title:"Homes for Rent", label:"Home Rent", sub:"Private spaces for living, staying and settling in.", statement:"A home selected, not just listed." },
+  kost:       { title:"Kost", label:"Kost", sub:"Comfortable living spaces in well-connected locations.", statement:"Everyday living, thoughtfully placed." },
+  land:       { title:"Land", label:"Land", sub:"Selected land opportunities for living, development and long-term potential.", statement:"Ground for what comes next." }
+};
+
+const properties = [
+  { id:"villa-aruna", cat:"guesthouse", name:"Villa Aruna", loc:"Canggu, Bali", status:"Available",
+    price:"Rp 850,000", period:"/ night", beds:2, baths:2, size:"180 m²",
+    desc:"Villa Aruna sits quietly behind a screen of tropical planting in Canggu, offering an intimate stay defined by natural materials and open living spaces.",
+    feat:{"Property Type":"Guest House","Bedrooms":"2","Bathrooms":"2","Building Size":"180 m²","Availability":"Available"} },
+  { id:"tirta-house", cat:"guesthouse", name:"Tirta House", loc:"Ubud, Bali", status:"Available",
+    price:"Rp 620,000", period:"/ night", beds:1, baths:1, size:"90 m²",
+    desc:"A single-bedroom retreat above the river valley in Ubud, built around a private garden and an open-air living pavilion.",
+    feat:{"Property Type":"Guest House","Bedrooms":"1","Bathrooms":"1","Building Size":"90 m²","Availability":"Available"} },
+  { id:"villa-aruna-2", cat:"homerent", name:"Villa Kirana", loc:"Canggu, Bali", status:"Available",
+    price:"Rp 45,000,000", period:"/ year", beds:2, baths:2, size:"180 m²",
+    desc:"A two-bedroom home in the quieter interior of Canggu, close to everyday conveniences while removed from the noise of the main strip.",
+    feat:{"Property Type":"Home Rent","Bedrooms":"2","Bathrooms":"2","Land Size":"220 m²","Building Size":"180 m²","Availability":"Available"} },
+  { id:"rumah-utara", cat:"homerent", name:"Rumah Utara", loc:"Denpasar Utara, Bali", status:"Available",
+    price:"Rp 35,000,000", period:"/ year", beds:3, baths:2, size:"150 m²",
+    desc:"A family home in a settled residential pocket of North Denpasar, with three bedrooms arranged around a shaded central courtyard.",
+    feat:{"Property Type":"Home Rent","Bedrooms":"3","Bathrooms":"2","Land Size":"180 m²","Building Size":"150 m²","Availability":"Available"} },
+  { id:"miuta-residence", cat:"kost", name:"MIUTA Residence", loc:"Denpasar, Bali", status:"Available",
+    price:"Rp 1,800,000", period:"/ month", beds:1, baths:1, size:"14 m²",
+    desc:"A private, furnished room within an easy walk of Denpasar's commercial district — built for modern everyday living rather than a passing stay.",
+    feat:{"Property Type":"Kost","Room Type":"Private, Furnished","Bathroom":"Ensuite","Availability":"Available"} },
+  { id:"kost-renon", cat:"kost", name:"Kost Renon", loc:"Renon, Denpasar", status:"Available",
+    price:"Rp 1,200,000", period:"/ month", beds:1, baths:1, size:"11 m²",
+    desc:"A quiet, well-ventilated room in Renon, positioned within reach of offices and government precincts.",
+    feat:{"Property Type":"Kost","Room Type":"Single, Non-AC","Bathroom":"Shared","Availability":"Available"} },
+  { id:"land-tabanan", cat:"land", name:"Land — Tabanan", loc:"Tabanan, Bali", status:"For Sale",
+    price:"Rp 2,500,000", period:"/ are", beds:null, baths:null, size:"1,000 m²",
+    desc:"An elevated parcel overlooking terraced rice fields in Tabanan, with road access and a gentle, buildable contour.",
+    feat:{"Property Type":"Land","Land Size":"1,000 m² (10 are)","Certificate":"SHM","Access":"Direct road access","Status":"For Sale"} },
+  { id:"land-kerobokan", cat:"land", name:"Land — Kerobokan", loc:"Kerobokan, Bali", status:"For Lease",
+    price:"Rp 15,000,000", period:"/ year", beds:null, baths:null, size:"500 m²",
+    desc:"A strategically positioned parcel on a main corridor in Kerobokan, suited to commercial or residential use.",
+    feat:{"Property Type":"Land","Land Size":"500 m² (5 are)","Certificate":"HGB","Access":"Direct road access","Status":"For Lease"} }
+];
+
+const developments = [
+  { name:"MIUTA House — Canggu", loc:"Canggu, Bali", type:"Residential Development", status:"In Development" },
+  { name:"MIUTA Land — Tabanan", loc:"Tabanan, Bali", type:"Land Development", status:"Coming Soon" },
+  { name:"MIUTA Stay — Ubud", loc:"Ubud, Bali", type:"Hospitality Development", status:"In Development" }
+];
+
+const locations = [
+  { name:"Bali", status:"Active" },
+  { name:"Jakarta", status:"Future" },
+  { name:"Lombok", status:"Future" },
+  { name:"Other Indonesia", status:"Future" }
+];
+
+function byId(id){ return document.getElementById(id); }
+
+/* ---------- Views ---------- */
+function homeView(){
+  const [gh, hr, ko, ld] = ["guesthouse","homerent","kost","land"].map(c => properties.find(p=>p.cat===c));
+  return `
+  <section class="hero" style="padding:0; max-width:none;">
+    <div class="hero-bg" id="parallax-bg"></div>
+    <div class="hero-content">
+      <div class="eyebrow reveal in" style="margin-bottom:20px; opacity:0.8;">MIUTA PROPERTY</div>
+      <h1 class="serif reveal in">Spaces to Stay.<br>Places to Belong.</h1>
+      <p class="reveal in" style="transition-delay:.15s;">A curated collection of homes, stays and land across Indonesia.</p>
+      <div class="hero-actions reveal in" style="transition-delay:.25s;">
+        <a class="btn btn-solid" href="#/category/guesthouse">Explore Properties</a>
+        <a class="btn btn-outline" href="#/about">About MIUTA</a>
+      </div>
+    </div>
+    <div class="scroll-ind">SCROLL<div class="bar"><i></i></div></div>
+  </section>
+
+  <section class="intro">
+    <div class="section-label lbl reveal">Introduction</div>
+    <div class="statement serif reveal">We create and curate spaces with character, purpose and potential.</div>
+    <p class="reveal">MIUTA Property brings together carefully selected homes, guest houses, rental spaces and land opportunities across Indonesia.</p>
+    <p class="principles reveal">Good location. Good design. Good potential.</p>
+  </section>
+
+  <section>
+    <div class="section-label lbl reveal">Our Collection</div>
+    <div class="section-title serif reveal">A collection, not a catalogue.</div>
+    <div class="collection-grid">
+      <div class="col-card c1 reveal" onclick="location.hash='#/category/guesthouse'">
+        <div class="img" style="background:${tone(0)}"></div>
+        <div class="info"><div class="lbl">Guest House</div><h3 class="serif">Thoughtfully selected spaces for short stays and meaningful experiences.</h3><div class="cta">Explore Guest Houses <span class="arrow">→</span></div></div>
+      </div>
+      <div class="col-card c2 reveal" onclick="location.hash='#/category/homerent'">
+        <div class="img" style="background:${tone(1)}"></div>
+        <div class="info"><div class="lbl">Home Rent</div><h3 class="serif">Private homes for comfort and everyday living.</h3><div class="cta">Explore Homes <span class="arrow">→</span></div></div>
+      </div>
+      <div class="col-card c3 reveal" onclick="location.hash='#/category/kost'">
+        <div class="img" style="background:${tone(2)}"></div>
+        <div class="info"><div class="lbl">Kost</div><h3 class="serif">Modern everyday living, well positioned.</h3><div class="cta">Explore Kost <span class="arrow">→</span></div></div>
+      </div>
+      <div class="col-card c4 reveal" onclick="location.hash='#/category/land'">
+        <div class="img" style="background:${tone(3)}"></div>
+        <div class="info"><div class="lbl">Land</div><h3 class="serif">Selected land for living, development and long-term potential.</h3><div class="cta">Explore Land <span class="arrow">→</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-label lbl reveal">Current Developments</div>
+    <div class="section-title serif reveal">From selected properties to future possibilities.</div>
+    <div class="dev-grid">
+      ${developments.map((d,i)=>`
+        <div class="dev-card reveal">
+          <div class="img"><div style="background:${tone(i+3)}"></div><div class="status-tag">${d.status}</div></div>
+          <h3 class="serif">${d.name}</h3>
+          <div class="loc">${d.loc} · ${d.type}</div>
+          <div class="view">View Project <span class="arrow">→</span></div>
+        </div>`).join('')}
+    </div>
+  </section>
+
+  <section class="tight">
+    <div class="section-label lbl reveal">Where We Are</div>
+    <div class="section-title serif reveal">Growing thoughtfully, one place at a time.</div>
+    <div class="where-list">
+      ${locations.map(l=>`<div class="where-row reveal">${l.name} <span>${l.status}</span></div>`).join('')}
+    </div>
+  </section>
+
+  <section class="featured" style="max-width:none; padding-left:0; padding-right:0;">
+    <div class="feat-wrap reveal" onclick="location.hash='#/property/${gh.id}'" style="cursor:pointer;">
+      <div class="img" style="background:${tone(2)}"></div>
+      <div class="feat-info">
+        <div class="lbl">Featured Property</div>
+        <h3 class="serif">${gh.name}</h3>
+        <div class="meta">${gh.loc} · ${gh.beds} Bedrooms · ${gh.baths} Bathrooms · ${gh.size} · ${gh.status.toUpperCase()}</div>
+        <a class="btn btn-outline">View Property <span class="arrow">→</span></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="philosophy reveal">
+    <h2 class="serif">Property is more than space.</h2>
+    <p>MIUTA Property seeks out spaces that offer more than physical value — properties with a sense of place, potential and purpose.</p>
+  </section>
+
+  <section class="cta-band reveal">
+    <h2 class="serif">Looking for a place?</h2>
+    <p>Tell us what you are looking for and let us help you find the right space.</p>
+    <div class="hero-actions">
+      <a class="btn btn-dark" href="${waLink('Hi MIUTA Property, I am looking for a property. Could you help me find the right space?')}" target="_blank">Enquire via WhatsApp ↗</a>
+      <a class="btn btn-outline" style="border-color:var(--line); color:var(--charcoal);" href="#/category/guesthouse">View Properties</a>
+    </div>
+  </section>
+  `;
+}
+
+function categoryView(cat){
+  const meta = catMeta[cat];
+  const items = properties.filter(p=>p.cat===cat);
+  return `
+  <section class="page-hero" style="max-width:none; padding:0;">
+    <div class="hero-bg" style="background:${tone(Object.keys(catMeta).indexOf(cat))}"></div>
+    <div class="page-hero-content">
+      <div class="eyebrow reveal in" style="opacity:0.8; margin-bottom:16px;">Collection</div>
+      <h1 class="serif reveal in">${meta.title.toUpperCase()}</h1>
+      <p class="reveal in" style="transition-delay:.1s;">${meta.sub}</p>
+    </div>
+  </section>
+  <section>
+    <div class="list-intro reveal">
+      <div class="statement serif">${meta.statement}</div>
+      <p>Each ${meta.label.toLowerCase()} in the MIUTA collection is selected individually — for its location, its character and its potential.</p>
+    </div>
+    <div class="prop-list">
+      ${items.map((p,i)=>`
+        <div class="prop-row reveal" onclick="location.hash='#/property/${p.id}'">
+          <div class="img"><div style="background:${tone(i+1)}"></div></div>
+          <div class="body">
+            <div class="lbl">${meta.label}</div>
+            <h3 class="serif">${p.name}</h3>
+            <div class="loc">${p.loc}</div>
+            <div class="meta-row">
+              ${p.beds ? `<span>${p.beds} Bedrooms</span><span>${p.baths} Bathrooms</span>` : ''}
+              <span>${p.size}</span>
+            </div>
+            <div class="price-line">${p.price} <small>${p.period}</small></div>
+            <div class="status"><i></i> ${p.status}</div>
+            <div class="view">View Property <span class="arrow">→</span></div>
+          </div>
+        </div>`).join('')}
+    </div>
+  </section>
+  `;
+}
+
+function propertyView(id){
+  const p = properties.find(x=>x.id===id);
+  if(!p) return `<section style="padding-top:180px;"><p>Property not found. <a href="#/">Return home</a></p></section>`;
+  const meta = catMeta[p.cat];
+  const featHtml = Object.entries(p.feat).map(([k,v])=>`<div><span>${k}</span><span>${v}</span></div>`).join('');
+  const idx = properties.indexOf(p);
+  return `
+  <section class="detail-hero" style="max-width:none; padding:0;">
+    <div class="hero-bg" style="background:${tone(idx+2)}"></div>
+    <a href="#/category/${p.cat}" class="back-link">← ${meta.title}</a>
+    <div class="detail-hero-content">
+      <div class="lbl reveal in">${meta.label} · ${p.loc}</div>
+      <h1 class="serif reveal in">${p.name}</h1>
+    </div>
+  </section>
+  <section>
+    <div class="detail-grid">
+      <div>
+        <div class="lbl reveal" style="color:var(--accent); margin-bottom:16px;">Overview</div>
+        <p class="detail-desc reveal">${p.desc}</p>
+        <div class="lbl reveal" style="color:var(--ink-faint); margin-bottom:20px;">Details</div>
+        <div class="feat-list reveal">${featHtml}</div>
+        <div class="gallery-strip reveal">
+          <div class="g"><div style="background:${tone(idx)}"></div></div>
+          <div class="g"><div style="background:${tone(idx+1)}"></div></div>
+          <div class="g"><div style="background:${tone(idx+2)}"></div></div>
+        </div>
+      </div>
+      <div class="reveal">
+        <div class="price-box">
+          <div class="lbl">Price</div>
+          <div class="amount serif">${p.price} <small>${p.period}</small></div>
+          <div class="status-dot"><i></i> ${p.status}</div>
+        </div>
+        <div class="lbl" style="margin-bottom:14px; color:var(--ink-faint);">Interested in this property?</div>
+        <a class="cta-btn" href="${waLink(`Hi MIUTA Property, I'm interested in ${p.name} in ${p.loc}. Could you share more information?`)}" target="_blank">Enquire via WhatsApp ↗</a>
+        <div class="cta-note">Response usually within 1 business day</div>
+      </div>
+    </div>
+  </section>
+  `;
+}
+
+function aboutView(){
+  return `
+  <section class="page-hero" style="max-width:none; padding:0;">
+    <div class="hero-bg" style="background:${tone(4)}"></div>
+    <div class="page-hero-content">
+      <div class="eyebrow reveal in" style="opacity:0.8; margin-bottom:16px;">About MIUTA Property</div>
+      <h1 class="serif reveal in">Creating possibilities through places.</h1>
+    </div>
+  </section>
+  <section class="intro" style="text-align:left; max-width:1320px;">
+    <p class="reveal" style="max-width:640px; margin:0; font-size:1rem;">MIUTA Property is a curated property platform focused on homes, stays, rental spaces and land opportunities. We look for properties with a strong sense of place, practical value and long-term potential. Our approach combines property, design and hospitality to create spaces that people can stay in, live in and invest in.</p>
+    <div class="about-principles">
+      <div class="p-item reveal"><div class="lbl num">01 — Place</div><h3 class="serif">Place</h3><p>We believe location creates the foundation of a great property.</p></div>
+      <div class="p-item reveal"><div class="lbl num">02 — Character</div><h3 class="serif">Character</h3><p>Every space should have its own identity.</p></div>
+      <div class="p-item reveal"><div class="lbl num">03 — Potential</div><h3 class="serif">Potential</h3><p>We look beyond today and consider what a property can become.</p></div>
+    </div>
+  </section>
+  <section class="tight">
+    <div class="section-label lbl reveal">A Growing Collection</div>
+    <div class="section-title serif reveal">From available spaces today to projects taking shape tomorrow.</div>
+  </section>
+  <section class="cta-band reveal">
+    <h2 class="serif">Looking for a place?</h2>
+    <p>Tell us what you are looking for and let us help you find the right space.</p>
+    <a class="btn btn-dark" href="${waLink('Hi MIUTA Property, I would like to know more about your collection.')}" target="_blank">Enquire via WhatsApp ↗</a>
+  </section>
+  `;
+}
+
+function footerHtml(){
+  return `
+  <footer>
+    <div class="footer-top">
+      <div>
+        <div class="logo serif">MIUTA PROPERTY</div>
+        <div class="tag">Spaces to Stay. Places to Belong.</div>
+      </div>
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <a href="#/">Home</a><a href="#/category/guesthouse">Guest House</a><a href="#/category/homerent">Home Rent</a><a href="#/category/kost">Kost</a><a href="#/category/land">Land</a><a href="#/about">About Us</a>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <a href="${waLink('Hi MIUTA Property')}" target="_blank">WhatsApp</a>
+        <a href="mailto:hello@miutaproperty.com">Email</a>
+        <a href="https://instagram.com" target="_blank">Instagram</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>© 2026 MIUTA Property. All Rights Reserved.</div>
+    </div>
+  </footer>`;
+}
+
+/* ---------- Router ---------- */
+function render(){
+  const hash = location.hash || '#/';
+  const parts = hash.replace('#/','').split('/').filter(Boolean);
+  let html = '';
+  document.body.classList.remove('menu-open');
+  if(parts.length === 0){ html = homeView(); document.body.dataset.page = 'home'; }
+  else if(parts[0] === 'category'){ html = categoryView(parts[1]); document.body.dataset.page = 'sub'; }
+  else if(parts[0] === 'property'){ html = propertyView(parts[1]); document.body.dataset.page = 'sub'; }
+  else if(parts[0] === 'about'){ html = aboutView(); document.body.dataset.page = 'sub'; }
+  else { html = homeView(); document.body.dataset.page = 'home'; }
+
+  const view = byId('view');
+  view.style.opacity = 0;
+  setTimeout(()=>{
+    view.innerHTML = html + footerHtml();
+    window.scrollTo(0,0);
+    view.style.opacity = 1;
+    initReveal();
+    updateNavState();
+  }, 180);
+
+  byId('nav-enquire').href = waLink('Hi MIUTA Property, I would like to know more about your collection.');
+}
+window.addEventListener('hashchange', render);
+byId('view').style.transition = 'opacity .3s ease';
+
+/* ---------- Scroll reveal ---------- */
+function initReveal(){
+  const els = document.querySelectorAll('.reveal:not(.in)');
+  const obs = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); obs.unobserve(e.target); } });
+  }, { threshold:0.15 });
+  els.forEach(el=>obs.observe(el));
+}
+
+/* ---------- Nav scroll state + parallax ---------- */
+function updateNavState(){
+  const header = byId('header');
+  function onScroll(){
+    const solidThreshold = document.body.dataset.page === 'home' ? window.innerHeight*0.7 : 60;
+    if(window.scrollY > solidThreshold){ header.classList.add('solid'); } else { header.classList.remove('solid'); }
+    const bg = byId('parallax-bg');
+    if(bg){ bg.style.transform = `translateY(${window.scrollY*0.12}px)`; }
+  }
+  window.removeEventListener('scroll', window._miutaScroll);
+  window._miutaScroll = onScroll;
+  window.addEventListener('scroll', onScroll);
+  onScroll();
+}
+
+render();
+</script>
+</body>
+</html>
