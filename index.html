@@ -79,11 +79,6 @@
   .btn-outline:hover{ border-color:var(--white); }
   .btn-dark{ background:var(--charcoal); color:var(--white); }
   .btn-dark:hover{ background:var(--grey); }
-  .scroll-ind{ position:absolute; bottom:26px; left:50%; transform:translateX(-50%); z-index:2; text-align:center; font-size:0.68rem; letter-spacing:0.16em; opacity:0.7; }
-  .scroll-ind .bar{ width:1px; height:34px; background:rgba(250,248,243,0.5); margin:10px auto 0; overflow:hidden; }
-  .scroll-ind .bar i{ display:block; width:100%; height:40%; background:var(--white); animation:scrollmove 1.8s infinite ease-in-out; }
-  @keyframes scrollmove{ 0%{transform:translateY(-100%);} 100%{transform:translateY(250%);} }
-
   /* ===== Page hero (sub pages) ===== */
   .page-hero{
     height:56vh; min-height:400px; position:relative; display:flex; align-items:flex-end; color:var(--white); overflow:hidden;
@@ -139,23 +134,6 @@
   .dev-card:hover .view .arrow{ transform:translateX(4px); }
   .arrow{ display:inline-block; transition:transform .25s ease; }
 
-  /* Where we are */
-  .where-list{ margin-top:50px; border-top:1px solid var(--line); }
-  .where-row{ display:flex; justify-content:space-between; align-items:center; padding:26px 0; border-bottom:1px solid var(--line); font-family:'Fraunces',serif; font-size:1.5rem; transition:padding-left .3s ease; }
-  .where-row:hover{ padding-left:14px; color:var(--accent); }
-  .where-row span{ font-family:'Inter',sans-serif; font-size:0.78rem; color:var(--ink-faint); letter-spacing:0.06em; }
-
-  /* Featured property */
-  .featured{ padding-top:0; }
-  .feat-wrap{ position:relative; aspect-ratio:16/8.5; overflow:hidden; }
-  .feat-wrap .img{ position:absolute; inset:0; transition:transform 1s ease; }
-  .feat-wrap:hover .img{ transform:scale(1.02); }
-  .feat-wrap::after{ content:""; position:absolute; inset:0; background:linear-gradient(90deg, rgba(20,20,18,0.55), transparent 60%); }
-  .feat-info{ position:absolute; left:44px; bottom:40px; z-index:2; color:var(--white); max-width:400px; }
-  .feat-info .lbl{ opacity:0.75; margin-bottom:14px; }
-  .feat-info h3{ font-size:2rem; margin-bottom:8px; }
-  .feat-info .meta{ font-size:0.85rem; opacity:0.85; margin-bottom:22px; }
-
   /* Philosophy */
   .philosophy{ text-align:center; background:var(--charcoal); color:var(--white); max-width:none; padding:140px 40px; }
   .philosophy h2{ font-size:clamp(2rem,4.4vw,3.4rem); font-weight:300; margin-bottom:24px; letter-spacing:0.01em; }
@@ -194,23 +172,43 @@
   .detail-hero .lbl{ opacity:0.75; margin-bottom:12px; }
   .detail-hero h1{ font-size:clamp(2rem,4.6vw,3.4rem); font-weight:300; margin-bottom:10px; }
   .back-link{ position:absolute; top:110px; left:40px; z-index:5; font-size:0.78rem; letter-spacing:0.06em; text-transform:uppercase; color:var(--white); display:flex; align-items:center; gap:8px; opacity:0.85; }
+
+  /* Gallery grid + lightbox */
+  .gallery-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:6px; margin:50px 0 60px; }
+  .gg-item{ aspect-ratio:1/1; position:relative; overflow:hidden; cursor:pointer; }
+  .gg-item > div{ position:absolute; inset:0; transition:transform .5s ease; }
+  .gg-item:hover > div{ transform:scale(1.06); }
+  .lightbox{ position:fixed; inset:0; z-index:300; background:rgba(10,10,9,0.96); display:none; align-items:center; justify-content:center; }
+  .lightbox.open{ display:flex; }
+  .lb-stage{ width:80vw; max-width:900px; aspect-ratio:4/3; position:relative; overflow:hidden; touch-action:pan-y; }
+  .lb-stage > div{ position:absolute; inset:0; }
+  .lb-close{ position:absolute; top:26px; right:32px; color:var(--white); font-size:2rem; line-height:1; opacity:0.8; z-index:5; }
+  .lb-close:hover{ opacity:1; }
+  .lb-nav{ position:absolute; top:50%; transform:translateY(-50%); color:var(--white); font-size:2.4rem; opacity:0.7; z-index:5; padding:10px 16px; }
+  .lb-nav:hover{ opacity:1; }
+  .lb-prev{ left:12px; } .lb-next{ right:12px; }
+  .lb-dots{ position:absolute; bottom:26px; left:0; right:0; display:flex; justify-content:center; gap:8px; }
+  .lb-dots span{ width:6px; height:6px; border-radius:50%; background:rgba(250,248,243,0.35); }
+  .lb-dots span.on{ background:var(--white); }
+
   .detail-grid{ display:grid; grid-template-columns:1.5fr 1fr; gap:70px; }
-  .detail-desc{ font-size:0.98rem; color:var(--ink-soft); line-height:1.85; max-width:520px; margin-bottom:44px; }
-  .feat-list{ display:grid; grid-template-columns:1fr 1fr; gap:16px 30px; }
-  .feat-list div{ font-size:0.9rem; padding-bottom:14px; border-bottom:1px solid var(--line); display:flex; justify-content:space-between; }
-  .feat-list div span:first-child{ color:var(--ink-faint); }
-  .gallery-strip{ display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin:60px 0 0; }
-  .gallery-strip .g{ aspect-ratio:4/3.4; position:relative; overflow:hidden; }
-  .gallery-strip .g > div{ position:absolute; inset:0; }
-  .price-box{ padding:30px; border:1px solid var(--line); margin-bottom:20px; }
-  .price-box .lbl{ color:var(--ink-faint); margin-bottom:10px; }
-  .price-box .amount{ font-family:'Fraunces',serif; font-size:1.8rem; }
+  .detail-desc{ font-size:0.98rem; color:var(--ink-soft); line-height:1.85; max-width:520px; margin-bottom:36px; }
+  .detail-groups{ display:grid; grid-template-columns:1fr 1fr; gap:28px 36px; }
+  .dg h4{ font-size:0.7rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); font-weight:400; font-family:'Inter',sans-serif; margin-bottom:10px; }
+  .dg ul{ list-style:none; }
+  .dg li{ font-size:0.88rem; color:var(--ink-soft); line-height:1.7; padding-left:14px; position:relative; }
+  .dg li::before{ content:"•"; position:absolute; left:0; color:var(--ink-faint); }
+
+  .price-box{ padding:24px; border:1px solid var(--line); margin-bottom:20px; }
+  .price-box .lbl{ color:var(--ink-faint); margin-bottom:8px; }
+  .price-box .amount{ font-family:'Fraunces',serif; font-size:1.7rem; }
   .price-box .amount small{ font-family:'Inter',sans-serif; font-size:0.8rem; color:var(--ink-faint); }
-  .status-dot{ display:inline-flex; align-items:center; gap:7px; font-size:0.82rem; margin-top:16px; color:var(--accent); }
+  .status-dot{ display:inline-flex; align-items:center; gap:7px; font-size:0.82rem; margin-top:12px; color:var(--accent); }
   .status-dot i{ width:6px; height:6px; border-radius:50%; background:var(--accent); }
+  .avail-tags{ display:flex; flex-wrap:wrap; gap:6px; margin-top:14px; }
+  .avail-tags span{ font-size:0.7rem; letter-spacing:0.03em; padding:5px 10px; background:var(--sand); color:var(--ink-soft); }
   .cta-btn{ display:flex; align-items:center; justify-content:center; gap:10px; width:100%; padding:17px; background:var(--charcoal); color:var(--white); font-size:0.82rem; letter-spacing:0.06em; text-transform:uppercase; transition:background .25s; }
   .cta-btn:hover{ background:var(--accent); }
-  .cta-note{ text-align:center; font-size:0.76rem; color:var(--ink-faint); margin-top:12px; }
 
   /* About */
   .about-principles{ display:grid; grid-template-columns:repeat(3,1fr); gap:50px; margin-top:70px; }
@@ -219,13 +217,13 @@
   .about-principles p{ color:var(--ink-soft); font-size:0.92rem; }
 
   /* Footer */
-  footer{ max-width:1320px; margin:0 auto; padding:90px 40px 50px; }
-  .footer-top{ display:flex; justify-content:space-between; padding-bottom:60px; border-bottom:1px solid var(--line); flex-wrap:wrap; gap:40px; }
-  footer .logo{ font-size:1.3rem; margin-bottom:10px; color:var(--charcoal); }
-  footer .tag{ color:var(--ink-soft); font-size:0.9rem; max-width:260px; }
-  .footer-col h4{ font-size:0.72rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:16px; font-weight:400; }
-  .footer-col a{ display:block; font-size:0.9rem; color:var(--ink-soft); margin-bottom:10px; }
-  .footer-bottom{ display:flex; justify-content:space-between; padding-top:30px; font-size:0.78rem; color:var(--ink-faint); flex-wrap:wrap; gap:10px; }
+  footer{ max-width:1320px; margin:0 auto; padding:44px 40px 28px; }
+  .footer-row{ display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:18px; padding-bottom:22px; border-bottom:1px solid var(--line); }
+  footer .logo{ font-size:1.05rem; color:var(--charcoal); }
+  .footer-links{ display:flex; gap:20px; flex-wrap:wrap; font-size:0.82rem; }
+  .footer-links a{ color:var(--ink-soft); }
+  .footer-links a:hover{ color:var(--charcoal); }
+  .footer-bottom{ padding-top:18px; font-size:0.74rem; color:var(--ink-faint); }
 
   @media (max-width:900px){
     .nav-links{ display:none; }
@@ -234,14 +232,15 @@
     .c1,.c2,.c3,.c4{ grid-column:span 2; aspect-ratio:4/3.2; }
     .dev-grid{ grid-template-columns:1fr; }
     .prop-row{ grid-template-columns:1fr; gap:26px; }
-    .detail-grid{ grid-template-columns:1fr; gap:40px; }
-    .gallery-strip{ grid-template-columns:1fr 1fr; }
+    .detail-grid{ grid-template-columns:1fr; gap:36px; }
+    .gallery-grid{ grid-template-columns:1fr 1fr; }
     .about-principles{ grid-template-columns:1fr; gap:36px; }
     section{ padding:80px 24px; }
     .philosophy,.cta-band{ padding:90px 24px; }
   }
   @media (max-width:560px){
-    .feat-list, .gallery-strip{ grid-template-columns:1fr; }
+    .detail-groups{ grid-template-columns:1fr; }
+    .lb-stage{ width:92vw; }
     nav, .hero-content, .page-hero-content, .detail-hero-content, footer, section{ padding-left:22px; padding-right:22px; }
   }
 </style>
@@ -259,7 +258,6 @@
       <a href="#/category/land">Land</a>
       <a href="#/about">About Us</a>
     </div>
-    <a class="enquire" id="nav-enquire" target="_blank">Enquire ↗</a>
     <button class="burger" onclick="document.body.classList.toggle('menu-open')"><span></span><span></span><span></span></button>
   </nav>
 </header>
@@ -269,6 +267,15 @@
 <script>
 const WA_NUMBER = "6285288884222";
 const waLink = (text) => `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(text)}`;
+
+const HERO_IMG = "alfiano-sutianto-exFdOWkYBQw-unsplash.jpg";
+const categoryImg = {
+  guesthouse: "sanju-pandita-R091q4t2k44-unsplash.jpg",
+  homerent: "m-nh-ngo-na8k_TwOWK0-unsplash.jpg",
+  kost: "jaykumar-bherwani-4edVIATW2fY-unsplash.jpg",
+  land: "niklas-weiss--2WlTWZLnRc-unsplash.jpg"
+};
+const photo = (url, overlay) => `background:${overlay ? 'linear-gradient(rgba(15,15,13,0.32),rgba(10,10,9,0.5)), ' : ''}url('${url}') center/cover no-repeat;`;
 
 const tones = [
   ["#4A5044","#23261F"], ["#5A4A3E","#2B211B"], ["#3E4A52","#1D2428"],
@@ -283,45 +290,64 @@ const catMeta = {
   land:       { title:"Land", label:"Land", sub:"Selected land opportunities for living, development and long-term potential.", statement:"Ground for what comes next." }
 };
 
+const availabilityByCat = {
+  guesthouse: ["Daily","Weekly","Monthly"],
+  homerent: ["Yearly"],
+  kost: ["Daily","Weekly","Monthly","Yearly"],
+  land: []
+};
+
+const galleryFillers = [
+  "katarzyna-zygnerska-Y0UUhY1V7Po-unsplash.jpg",
+  "loris-boulinguez-S0VYuu8cw80-unsplash.jpg",
+  "nir-log-R4Y62l2yem0-unsplash.jpg"
+];
+function galleryFor(p, idx){
+  const lead = p.mainImg || categoryImg[p.cat];
+  return [lead, galleryFillers[idx%3], galleryFillers[(idx+1)%3], galleryFillers[(idx+2)%3]];
+}
+function coverImg(p){ return p.mainImg || categoryImg[p.cat]; }
+
 const properties = [
   { id:"villa-aruna", cat:"guesthouse", name:"Villa Aruna", loc:"Canggu, Bali", status:"Available",
     price:"Rp 850,000", period:"/ night", beds:2, baths:2, size:"180 m²",
     desc:"Villa Aruna sits quietly behind a screen of tropical planting in Canggu, offering an intimate stay defined by natural materials and open living spaces.",
-    feat:{"Property Type":"Guest House","Bedrooms":"2","Bathrooms":"2","Building Size":"180 m²","Availability":"Available"} },
+    groups:{ "Specification":["2 Bedrooms","2 Bathrooms","Building size 180 m²"], "Facilities":["Private pool","Air conditioning","WiFi","Daily housekeeping"] } },
   { id:"tirta-house", cat:"guesthouse", name:"Tirta House", loc:"Ubud, Bali", status:"Available",
     price:"Rp 620,000", period:"/ night", beds:1, baths:1, size:"90 m²",
     desc:"A single-bedroom retreat above the river valley in Ubud, built around a private garden and an open-air living pavilion.",
-    feat:{"Property Type":"Guest House","Bedrooms":"1","Bathrooms":"1","Building Size":"90 m²","Availability":"Available"} },
+    groups:{ "Specification":["1 Bedroom","1 Bathroom","Building size 90 m²"], "Facilities":["Private garden","WiFi","Breakfast included"] } },
   { id:"villa-aruna-2", cat:"homerent", name:"Villa Kirana", loc:"Canggu, Bali", status:"Available",
     price:"Rp 45,000,000", period:"/ year", beds:2, baths:2, size:"180 m²",
     desc:"A two-bedroom home in the quieter interior of Canggu, close to everyday conveniences while removed from the noise of the main strip.",
-    feat:{"Property Type":"Home Rent","Bedrooms":"2","Bathrooms":"2","Land Size":"220 m²","Building Size":"180 m²","Availability":"Available"} },
+    groups:{ "Specification":["2 Bedrooms","2 Bathrooms","Land size 220 m²","Building size 180 m²"], "Facilities":["Semi-furnished","Private parking"], "Legality":["Certificate: HGB"] } },
   { id:"rumah-utara", cat:"homerent", name:"Rumah Utara", loc:"Denpasar Utara, Bali", status:"Available",
     price:"Rp 35,000,000", period:"/ year", beds:3, baths:2, size:"150 m²",
     desc:"A family home in a settled residential pocket of North Denpasar, with three bedrooms arranged around a shaded central courtyard.",
-    feat:{"Property Type":"Home Rent","Bedrooms":"3","Bathrooms":"2","Land Size":"180 m²","Building Size":"150 m²","Availability":"Available"} },
+    groups:{ "Specification":["3 Bedrooms","2 Bathrooms","Land size 180 m²","Building size 150 m²"], "Facilities":["Unfurnished","Private parking","Courtyard"], "Legality":["Certificate: SHM"] } },
   { id:"miuta-residence", cat:"kost", name:"MIUTA Residence", loc:"Denpasar, Bali", status:"Available",
     price:"Rp 1,800,000", period:"/ month", beds:1, baths:1, size:"14 m²",
     desc:"A private, furnished room within an easy walk of Denpasar's commercial district — built for modern everyday living rather than a passing stay.",
-    feat:{"Property Type":"Kost","Room Type":"Private, Furnished","Bathroom":"Ensuite","Availability":"Available"} },
+    groups:{ "Specification":["Private room, furnished","Room size 14 m²","Ensuite bathroom"], "Facilities":["Air conditioning","WiFi","Weekly cleaning"], "Other Info":["5 minute walk to commercial district"] } },
   { id:"kost-renon", cat:"kost", name:"Kost Renon", loc:"Renon, Denpasar", status:"Available",
     price:"Rp 1,200,000", period:"/ month", beds:1, baths:1, size:"11 m²",
     desc:"A quiet, well-ventilated room in Renon, positioned within reach of offices and government precincts.",
-    feat:{"Property Type":"Kost","Room Type":"Single, Non-AC","Bathroom":"Shared","Availability":"Available"} },
+    groups:{ "Specification":["Single room, non-AC","Room size 11 m²","Shared bathroom"], "Facilities":["WiFi","Shared kitchen"], "Other Info":["Close to office district"] } },
   { id:"land-tabanan", cat:"land", name:"Land — Tabanan", loc:"Tabanan, Bali", status:"For Sale",
     price:"Rp 2,500,000", period:"/ are", beds:null, baths:null, size:"1,000 m²",
     desc:"An elevated parcel overlooking terraced rice fields in Tabanan, with road access and a gentle, buildable contour.",
-    feat:{"Property Type":"Land","Land Size":"1,000 m² (10 are)","Certificate":"SHM","Access":"Direct road access","Status":"For Sale"} },
+    mainImg:"katarzyna-zygnerska-Y0UUhY1V7Po-unsplash.jpg",
+    groups:{ "Specification":["Land size 1,000 m² (10 are)","Flat contour"], "Access":["Direct road access"], "Legality":["Certificate: SHM"] } },
   { id:"land-kerobokan", cat:"land", name:"Land — Kerobokan", loc:"Kerobokan, Bali", status:"For Lease",
     price:"Rp 15,000,000", period:"/ year", beds:null, baths:null, size:"500 m²",
     desc:"A strategically positioned parcel on a main corridor in Kerobokan, suited to commercial or residential use.",
-    feat:{"Property Type":"Land","Land Size":"500 m² (5 are)","Certificate":"HGB","Access":"Direct road access","Status":"For Lease"} }
+    groups:{ "Specification":["Land size 500 m² (5 are)","Main corridor frontage"], "Access":["Direct road access"], "Legality":["Certificate: HGB"] } }
 ];
 
 const developments = [
-  { name:"MIUTA House — Canggu", loc:"Canggu, Bali", type:"Residential Development", status:"In Development" },
-  { name:"MIUTA Land — Tabanan", loc:"Tabanan, Bali", type:"Land Development", status:"Coming Soon" },
-  { name:"MIUTA Stay — Ubud", loc:"Ubud, Bali", type:"Hospitality Development", status:"In Development" }
+  { name:"MIUTA House — Canggu", loc:"Canggu, Bali", type:"Residential Development", status:"In Development", img:"loris-boulinguez-S0VYuu8cw80-unsplash.jpg" },
+  { name:"MIUTA Land — Tabanan", loc:"Tabanan, Bali", type:"Land Development", status:"Coming Soon", img:"katarzyna-zygnerska-Y0UUhY1V7Po-unsplash.jpg" },
+  { name:"MIUTA Stay — Ubud", loc:"Ubud, Bali", type:"Hospitality Development", status:"In Development", img:"loris-boulinguez-S0VYuu8cw80-unsplash.jpg" }
 ];
 
 const locations = [
@@ -335,24 +361,21 @@ function byId(id){ return document.getElementById(id); }
 
 /* ---------- Views ---------- */
 function homeView(){
-  const [gh, hr, ko, ld] = ["guesthouse","homerent","kost","land"].map(c => properties.find(p=>p.cat===c));
   return `
   <section class="hero" style="padding:0; max-width:none;">
-    <div class="hero-bg" id="parallax-bg"></div>
+    <div class="hero-bg" id="parallax-bg" style="${photo(HERO_IMG, true)}"></div>
     <div class="hero-content">
       <div class="eyebrow reveal in" style="margin-bottom:20px; opacity:0.8;">MIUTA PROPERTY</div>
       <h1 class="serif reveal in">Spaces to Stay.<br>Places to Belong.</h1>
       <p class="reveal in" style="transition-delay:.15s;">A curated collection of homes, stays and land across Indonesia.</p>
       <div class="hero-actions reveal in" style="transition-delay:.25s;">
         <a class="btn btn-solid" href="#/category/guesthouse">Explore Properties</a>
-        <a class="btn btn-outline" href="#/about">About MIUTA</a>
+        <a class="btn btn-outline" href="${waLink('Hi MIUTA Property, I would like to know more about your collection.')}" target="_blank">Enquire</a>
       </div>
     </div>
-    <div class="scroll-ind">SCROLL<div class="bar"><i></i></div></div>
   </section>
 
   <section class="intro">
-    <div class="section-label lbl reveal">Introduction</div>
     <div class="statement serif reveal">We create and curate spaces with character, purpose and potential.</div>
     <p class="reveal">MIUTA Property brings together carefully selected homes, guest houses, rental spaces and land opportunities across Indonesia.</p>
     <p class="principles reveal">Good location. Good design. Good potential.</p>
@@ -363,19 +386,19 @@ function homeView(){
     <div class="section-title serif reveal">A collection, not a catalogue.</div>
     <div class="collection-grid">
       <div class="col-card c1 reveal" onclick="location.hash='#/category/guesthouse'">
-        <div class="img" style="background:${tone(0)}"></div>
+        <div class="img" style="${photo(categoryImg.guesthouse)}"></div>
         <div class="info"><div class="lbl">Guest House</div><h3 class="serif">Thoughtfully selected spaces for short stays and meaningful experiences.</h3><div class="cta">Explore Guest Houses <span class="arrow">→</span></div></div>
       </div>
       <div class="col-card c2 reveal" onclick="location.hash='#/category/homerent'">
-        <div class="img" style="background:${tone(1)}"></div>
+        <div class="img" style="${photo(categoryImg.homerent)}"></div>
         <div class="info"><div class="lbl">Home Rent</div><h3 class="serif">Private homes for comfort and everyday living.</h3><div class="cta">Explore Homes <span class="arrow">→</span></div></div>
       </div>
       <div class="col-card c3 reveal" onclick="location.hash='#/category/kost'">
-        <div class="img" style="background:${tone(2)}"></div>
+        <div class="img" style="${photo(categoryImg.kost)}"></div>
         <div class="info"><div class="lbl">Kost</div><h3 class="serif">Modern everyday living, well positioned.</h3><div class="cta">Explore Kost <span class="arrow">→</span></div></div>
       </div>
       <div class="col-card c4 reveal" onclick="location.hash='#/category/land'">
-        <div class="img" style="background:${tone(3)}"></div>
+        <div class="img" style="${photo(categoryImg.land)}"></div>
         <div class="info"><div class="lbl">Land</div><h3 class="serif">Selected land for living, development and long-term potential.</h3><div class="cta">Explore Land <span class="arrow">→</span></div></div>
       </div>
     </div>
@@ -387,31 +410,11 @@ function homeView(){
     <div class="dev-grid">
       ${developments.map((d,i)=>`
         <div class="dev-card reveal">
-          <div class="img"><div style="background:${tone(i+3)}"></div><div class="status-tag">${d.status}</div></div>
+          <div class="img"><div style="${photo(d.img)}"></div><div class="status-tag">${d.status}</div></div>
           <h3 class="serif">${d.name}</h3>
           <div class="loc">${d.loc} · ${d.type}</div>
           <div class="view">View Project <span class="arrow">→</span></div>
         </div>`).join('')}
-    </div>
-  </section>
-
-  <section class="tight">
-    <div class="section-label lbl reveal">Where We Are</div>
-    <div class="section-title serif reveal">Growing thoughtfully, one place at a time.</div>
-    <div class="where-list">
-      ${locations.map(l=>`<div class="where-row reveal">${l.name} <span>${l.status}</span></div>`).join('')}
-    </div>
-  </section>
-
-  <section class="featured" style="max-width:none; padding-left:0; padding-right:0;">
-    <div class="feat-wrap reveal" onclick="location.hash='#/property/${gh.id}'" style="cursor:pointer;">
-      <div class="img" style="background:${tone(2)}"></div>
-      <div class="feat-info">
-        <div class="lbl">Featured Property</div>
-        <h3 class="serif">${gh.name}</h3>
-        <div class="meta">${gh.loc} · ${gh.beds} Bedrooms · ${gh.baths} Bathrooms · ${gh.size} · ${gh.status.toUpperCase()}</div>
-        <a class="btn btn-outline">View Property <span class="arrow">→</span></a>
-      </div>
     </div>
   </section>
 
@@ -424,7 +427,7 @@ function homeView(){
     <h2 class="serif">Looking for a place?</h2>
     <p>Tell us what you are looking for and let us help you find the right space.</p>
     <div class="hero-actions">
-      <a class="btn btn-dark" href="${waLink('Hi MIUTA Property, I am looking for a property. Could you help me find the right space?')}" target="_blank">Enquire via WhatsApp ↗</a>
+      <a class="btn btn-dark" href="${waLink('Hi MIUTA Property, I am looking for a property. Could you help me find the right space?')}" target="_blank">Enquire</a>
       <a class="btn btn-outline" style="border-color:var(--line); color:var(--charcoal);" href="#/category/guesthouse">View Properties</a>
     </div>
   </section>
@@ -436,7 +439,7 @@ function categoryView(cat){
   const items = properties.filter(p=>p.cat===cat);
   return `
   <section class="page-hero" style="max-width:none; padding:0;">
-    <div class="hero-bg" style="background:${tone(Object.keys(catMeta).indexOf(cat))}"></div>
+    <div class="hero-bg" style="${photo(categoryImg[cat], true)}"></div>
     <div class="page-hero-content">
       <div class="eyebrow reveal in" style="opacity:0.8; margin-bottom:16px;">Collection</div>
       <h1 class="serif reveal in">${meta.title.toUpperCase()}</h1>
@@ -451,7 +454,7 @@ function categoryView(cat){
     <div class="prop-list">
       ${items.map((p,i)=>`
         <div class="prop-row reveal" onclick="location.hash='#/property/${p.id}'">
-          <div class="img"><div style="background:${tone(i+1)}"></div></div>
+          <div class="img"><div style="${photo(coverImg(p))}"></div></div>
           <div class="body">
             <div class="lbl">${meta.label}</div>
             <h3 class="serif">${p.name}</h3>
@@ -474,11 +477,19 @@ function propertyView(id){
   const p = properties.find(x=>x.id===id);
   if(!p) return `<section style="padding-top:180px;"><p>Property not found. <a href="#/">Return home</a></p></section>`;
   const meta = catMeta[p.cat];
-  const featHtml = Object.entries(p.feat).map(([k,v])=>`<div><span>${k}</span><span>${v}</span></div>`).join('');
   const idx = properties.indexOf(p);
+  const images = galleryFor(p, idx);
+  const avail = availabilityByCat[p.cat] || [];
+
+  const groupsHtml = Object.entries(p.groups).map(([groupName, items])=>`
+    <div class="dg">
+      <h4>${groupName}</h4>
+      <ul>${items.map(it=>`<li>${it}</li>`).join('')}</ul>
+    </div>`).join('');
+
   return `
   <section class="detail-hero" style="max-width:none; padding:0;">
-    <div class="hero-bg" style="background:${tone(idx+2)}"></div>
+    <div class="hero-bg" style="${photo(coverImg(p), true)}"></div>
     <a href="#/category/${p.cat}" class="back-link">← ${meta.title}</a>
     <div class="detail-hero-content">
       <div class="lbl reveal in">${meta.label} · ${p.loc}</div>
@@ -486,30 +497,35 @@ function propertyView(id){
     </div>
   </section>
   <section>
+    <div class="gallery-grid reveal">
+      ${images.map((img,i)=>`<div class="gg-item" onclick='openLightbox(${JSON.stringify(images)}, ${i})'><div style="${photo(img)}"></div></div>`).join('')}
+    </div>
     <div class="detail-grid">
       <div>
-        <div class="lbl reveal" style="color:var(--accent); margin-bottom:16px;">Overview</div>
+        <div class="lbl reveal" style="color:var(--accent); margin-bottom:14px;">Overview</div>
         <p class="detail-desc reveal">${p.desc}</p>
-        <div class="lbl reveal" style="color:var(--ink-faint); margin-bottom:20px;">Details</div>
-        <div class="feat-list reveal">${featHtml}</div>
-        <div class="gallery-strip reveal">
-          <div class="g"><div style="background:${tone(idx)}"></div></div>
-          <div class="g"><div style="background:${tone(idx+1)}"></div></div>
-          <div class="g"><div style="background:${tone(idx+2)}"></div></div>
-        </div>
+        <div class="detail-groups reveal">${groupsHtml}</div>
       </div>
       <div class="reveal">
         <div class="price-box">
           <div class="lbl">Price</div>
           <div class="amount serif">${p.price} <small>${p.period}</small></div>
           <div class="status-dot"><i></i> ${p.status}</div>
+          ${avail.length ? `<div class="avail-tags">${avail.map(a=>`<span>${a}</span>`).join('')}</div>` : ''}
         </div>
         <div class="lbl" style="margin-bottom:14px; color:var(--ink-faint);">Interested in this property?</div>
-        <a class="cta-btn" href="${waLink(`Hi MIUTA Property, I'm interested in ${p.name} in ${p.loc}. Could you share more information?`)}" target="_blank">Enquire via WhatsApp ↗</a>
-        <div class="cta-note">Response usually within 1 business day</div>
+        <a class="cta-btn" href="${waLink(`Hi MIUTA Property, I'm interested in ${p.name} in ${p.loc}. Could you share more information?`)}" target="_blank">Enquire</a>
       </div>
     </div>
   </section>
+
+  <div class="lightbox" id="lightbox">
+    <button class="lb-close" onclick="closeLightbox()">&times;</button>
+    <button class="lb-nav lb-prev" onclick="lbStep(-1)">‹</button>
+    <div class="lb-stage" id="lb-stage"></div>
+    <button class="lb-nav lb-next" onclick="lbStep(1)">›</button>
+    <div class="lb-dots" id="lb-dots"></div>
+  </div>
   `;
 }
 
@@ -537,7 +553,7 @@ function aboutView(){
   <section class="cta-band reveal">
     <h2 class="serif">Looking for a place?</h2>
     <p>Tell us what you are looking for and let us help you find the right space.</p>
-    <a class="btn btn-dark" href="${waLink('Hi MIUTA Property, I would like to know more about your collection.')}" target="_blank">Enquire via WhatsApp ↗</a>
+    <a class="btn btn-dark" href="${waLink('Hi MIUTA Property, I would like to know more about your collection.')}" target="_blank">Enquire</a>
   </section>
   `;
 }
@@ -545,25 +561,18 @@ function aboutView(){
 function footerHtml(){
   return `
   <footer>
-    <div class="footer-top">
-      <div>
-        <div class="logo serif">MIUTA PROPERTY</div>
-        <div class="tag">Spaces to Stay. Places to Belong.</div>
+    <div class="footer-row">
+      <div class="logo serif">MIUTA PROPERTY</div>
+      <div class="footer-links">
+        <a href="#/">Home</a><a href="#/category/guesthouse">Guest House</a><a href="#/category/homerent">Home Rent</a><a href="#/category/kost">Kost</a><a href="#/category/land">Land</a><a href="#/about">About</a>
       </div>
-      <div class="footer-col">
-        <h4>Navigation</h4>
-        <a href="#/">Home</a><a href="#/category/guesthouse">Guest House</a><a href="#/category/homerent">Home Rent</a><a href="#/category/kost">Kost</a><a href="#/category/land">Land</a><a href="#/about">About Us</a>
-      </div>
-      <div class="footer-col">
-        <h4>Contact</h4>
+      <div class="footer-links">
         <a href="${waLink('Hi MIUTA Property')}" target="_blank">WhatsApp</a>
         <a href="mailto:hello@miutaproperty.com">Email</a>
         <a href="https://instagram.com" target="_blank">Instagram</a>
       </div>
     </div>
-    <div class="footer-bottom">
-      <div>© 2026 MIUTA Property. All Rights Reserved.</div>
-    </div>
+    <div class="footer-bottom">© 2026 MIUTA Property. All Rights Reserved.</div>
   </footer>`;
 }
 
@@ -587,9 +596,8 @@ function render(){
     view.style.opacity = 1;
     initReveal();
     updateNavState();
+    initLightboxSwipe();
   }, 180);
-
-  byId('nav-enquire').href = waLink('Hi MIUTA Property, I would like to know more about your collection.');
 }
 window.addEventListener('hashchange', render);
 byId('view').style.transition = 'opacity .3s ease';
@@ -616,6 +624,48 @@ function updateNavState(){
   window._miutaScroll = onScroll;
   window.addEventListener('scroll', onScroll);
   onScroll();
+}
+
+/* ---------- Lightbox ---------- */
+let lbImages = [];
+let lbIndex = 0;
+function renderLbStage(){
+  byId('lb-stage').innerHTML = `<div style="${photo(lbImages[lbIndex])}"></div>`;
+  byId('lb-dots').innerHTML = lbImages.map((_,i)=>`<span class="${i===lbIndex?'on':''}"></span>`).join('');
+}
+function openLightbox(images, index){
+  lbImages = images; lbIndex = index;
+  byId('lightbox').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  renderLbStage();
+}
+function closeLightbox(){
+  const lb = byId('lightbox');
+  if(lb){ lb.classList.remove('open'); }
+  document.body.style.overflow = '';
+}
+function lbStep(dir){
+  lbIndex = (lbIndex + dir + lbImages.length) % lbImages.length;
+  renderLbStage();
+}
+document.addEventListener('keydown', e=>{
+  const lb = byId('lightbox');
+  if(!lb || !lb.classList.contains('open')) return;
+  if(e.key === 'Escape') closeLightbox();
+  if(e.key === 'ArrowRight') lbStep(1);
+  if(e.key === 'ArrowLeft') lbStep(-1);
+});
+function initLightboxSwipe(){
+  const stage = byId('lb-stage');
+  if(!stage) return;
+  let startX = null;
+  stage.addEventListener('touchstart', e=>{ startX = e.touches[0].clientX; }, {passive:true});
+  stage.addEventListener('touchend', e=>{
+    if(startX === null) return;
+    const dx = e.changedTouches[0].clientX - startX;
+    if(Math.abs(dx) > 40){ lbStep(dx < 0 ? 1 : -1); }
+    startX = null;
+  }, {passive:true});
 }
 
 render();
