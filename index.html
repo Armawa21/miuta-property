@@ -57,12 +57,22 @@
   .burger span{ width:22px; height:1px; background:currentColor; }
 
   .mobile-menu{
-    display:none; position:fixed; inset:0; z-index:190; background:rgba(250,248,243,0.94); backdrop-filter:blur(16px);
-    flex-direction:column; align-items:center; justify-content:center; gap:26px;
+    display:none; position:fixed; inset:0; z-index:190; background:rgba(250,248,243,0.97); backdrop-filter:blur(16px);
+    flex-direction:column; align-items:center; justify-content:center; gap:22px;
+    opacity:0; transition:opacity .35s ease;
   }
   body.menu-open .mobile-menu{ display:flex; }
-  .mobile-menu a{ font-family:'Fraunces',serif; font-size:1.6rem; color:var(--charcoal); }
-  .mobile-menu .mm-enquire{ font-family:'Inter',sans-serif; font-size:0.85rem; letter-spacing:0.08em; text-transform:uppercase; margin-top:16px; padding:14px 30px; background:var(--charcoal); color:var(--white); }
+  body.menu-open .mobile-menu.in{ opacity:1; }
+  .mobile-menu a{ font-family:'Fraunces',serif; font-size:1.55rem; color:var(--charcoal); opacity:0; transform:translateY(10px); transition:opacity .4s ease, transform .4s ease; }
+  body.menu-open .mobile-menu.in a{ opacity:1; transform:translateY(0); }
+  .mobile-menu a:nth-child(1){ transition-delay:.05s; } .mobile-menu a:nth-child(2){ transition-delay:.1s; }
+  .mobile-menu a:nth-child(3){ transition-delay:.15s; } .mobile-menu a:nth-child(4){ transition-delay:.2s; }
+  .mobile-menu a:nth-child(5){ transition-delay:.25s; } .mobile-menu a:nth-child(6){ transition-delay:.3s; }
+  .mobile-menu .mm-enquire{ font-family:'Inter',sans-serif; font-size:0.8rem; letter-spacing:0.08em; text-transform:uppercase; margin-top:14px; padding:14px 30px; background:var(--charcoal); color:var(--white); }
+  .mobile-menu .mm-social{ display:flex; gap:22px; margin-top:30px; opacity:0; transition:opacity .4s ease .35s; }
+  body.menu-open .mobile-menu.in .mm-social{ opacity:1; }
+  .mobile-menu .mm-social a{ color:var(--grey); opacity:1; transform:none; }
+  .mm-close{ position:absolute; top:24px; right:24px; font-size:1.7rem; color:var(--charcoal); line-height:1; }
 
   .hero{
     height:100vh; position:relative; display:flex; flex-direction:column; justify-content:flex-end;
@@ -224,15 +234,11 @@
   .footer-bottom{ padding-top:18px; font-size:0.74rem; color:var(--ink-faint); }
 
   @media (max-width:900px){
-    nav{ flex-direction:column; align-items:center; gap:12px; padding:22px 20px 16px; }
-    header.solid nav{ padding:14px 20px 12px; }
-    .logo{ order:1; }
-    .nav-links{ display:flex; order:2; flex-wrap:nowrap; justify-content:center; align-items:center; gap:0; font-size:0.6rem; white-space:nowrap; }
-    .nav-links > a{ padding:0 9px; position:relative; }
-    .nav-links > a:not(:last-child)::after{ content:""; position:absolute; right:0; top:50%; transform:translateY(-50%); width:1px; height:9px; background:currentColor; opacity:0.3; }
-    .nav-home{ padding-left:0 !important; }
-    .burger, .mobile-menu{ display:none !important; }
-    .back-link{ top:130px; left:20px; }
+    nav{ padding:22px 24px; }
+    header.solid nav{ padding:16px 24px; }
+    .nav-links{ display:none; }
+    .burger{ display:flex; }
+    .back-link{ top:110px; left:20px; }
     .collection-grid{ grid-template-columns:1fr 1fr; }
     .c1,.c2,.c3,.c4{ grid-column:span 2; aspect-ratio:4/3.2; }
     .dev-grid{ grid-template-columns:1fr; }
@@ -268,6 +274,7 @@
     <button class="burger" onclick="toggleMobileMenu()"><span></span><span></span><span></span></button>
   </nav>
   <div class="mobile-menu" id="mobileMenu">
+    <button class="mm-close" onclick="closeMobileMenu()" aria-label="Close menu">&times;</button>
     <a href="#/">Home</a>
     <a href="#/category/guesthouse">Guest House</a>
     <a href="#/category/homerent">Home Rent</a>
@@ -275,6 +282,17 @@
     <a href="#/category/land">Land</a>
     <a href="#/about">About Us</a>
     <a class="mm-enquire" id="mobile-enquire" target="_blank">Enquire</a>
+    <div class="mm-social">
+      <a href="" id="mm-wa" target="_blank" aria-label="WhatsApp" title="WhatsApp">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20.5 11.9c0 4.7-3.9 8.5-8.6 8.5-1.5 0-2.9-.4-4.1-1.1L3 20.5l1.2-4.6a8.4 8.4 0 0 1-1.3-4.5c0-4.7 3.9-8.5 8.6-8.5s8.6 3.8 8.6 8.5z"/><path d="M8.7 8.4c.2-.5.4-.5.6-.5h.5c.2 0 .4 0 .5.4.2.5.6 1.5.6 1.6.1.1.1.3 0 .4-.1.2-.1.3-.3.4-.1.2-.3.3-.4.5-.1.1-.3.3-.1.6.2.3.8 1.3 1.8 2.1 1.2 1 2.1 1.4 2.5 1.5.2.1.4.1.5-.1.2-.2.6-.7.8-.9.2-.2.3-.2.5-.1l1.5.7c.2.1.4.2.4.3.1.2.1.9-.2 1.4-.3.6-1.5 1.1-2.1 1.1-.5.1-1.2.1-1.9-.1-.4-.1-1-.3-1.7-.6-3-1.3-4.9-4.3-5.1-4.5-.1-.2-1.2-1.6-1.2-3.1 0-1.4.7-2.1 1-2.4z"/></svg>
+      </a>
+      <a href="mailto:hello@miutaproperty.com" aria-label="Email" title="Email">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="1.5"/><path d="M3.5 6.5 12 13l8.5-6.5"/></svg>
+      </a>
+      <a href="https://instagram.com/miuta.property" target="_blank" aria-label="Instagram" title="Instagram">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3.5" y="3.5" width="17" height="17" rx="4.5"/><circle cx="12" cy="12" r="3.6"/><circle cx="17.2" cy="6.8" r="0.9" fill="currentColor" stroke="none"/></svg>
+      </a>
+    </div>
   </div>
 </header>
 
@@ -646,10 +664,15 @@ function footerHtml(){
 function toggleMobileMenu(){
   const isOpen = document.body.classList.toggle('menu-open');
   document.body.style.overflow = isOpen ? 'hidden' : '';
+  const menu = byId('mobileMenu');
+  if(isOpen){ requestAnimationFrame(()=> menu.classList.add('in')); }
+  else{ menu.classList.remove('in'); }
 }
 function closeMobileMenu(){
   document.body.classList.remove('menu-open');
   document.body.style.overflow = '';
+  const menu = byId('mobileMenu');
+  if(menu) menu.classList.remove('in');
 }
 
 function render(){
@@ -742,6 +765,7 @@ function initLightboxSwipe(){
 }
 
 byId('mobile-enquire').href = waLink('Hi MIUTA Property, I would like to know more about your collection.');
+byId('mm-wa').href = waLink('Hi MIUTA Property');
 document.querySelectorAll('.mobile-menu a').forEach(a=>{
   a.addEventListener('click', closeMobileMenu);
 });
