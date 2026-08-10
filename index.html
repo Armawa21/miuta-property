@@ -12,7 +12,7 @@
     --white:#FAF8F3;
     --sand:#EDE6D8;
     --stone:#D9D0BE;
-    --charcoal:#2A2A28;
+    --charcoal:#3C3B37;
     --grey:#4A4642;
     --ink-soft: rgba(42,42,40,0.62);
     --ink-faint: rgba(42,42,40,0.4);
@@ -47,13 +47,21 @@
   nav{ max-width:1320px; margin:0 auto; padding:30px 40px; display:flex; justify-content:space-between; align-items:center; transition:padding .4s ease; }
   header.solid nav{ padding:18px 40px; }
   .logo{ font-size:1.05rem; letter-spacing:0.03em; color:var(--charcoal); }
-  header:not(.solid) .logo, header:not(.solid) .nav-links a, header:not(.solid) .enquire{ color:var(--white); }
+  header:not(.solid) .logo, header:not(.solid) .nav-links a, header:not(.solid) .enquire, header:not(.solid) .burger{ color:var(--white); }
   .nav-links{ display:flex; gap:32px; font-size:0.76rem; letter-spacing:0.1em; text-transform:uppercase; }
   .nav-links a{ opacity:0.82; transition:opacity .2s; }
   .nav-links a:hover{ opacity:1; }
   .enquire{ font-size:0.76rem; letter-spacing:0.1em; text-transform:uppercase; display:flex; align-items:center; gap:6px; }
-  .burger{ display:none; flex-direction:column; gap:5px; }
+  .burger{ display:none; flex-direction:column; gap:5px; z-index:210; position:relative; }
   .burger span{ width:22px; height:1px; background:currentColor; }
+
+  .mobile-menu{
+    display:none; position:fixed; inset:0; z-index:190; background:var(--white);
+    flex-direction:column; align-items:center; justify-content:center; gap:26px;
+  }
+  body.menu-open .mobile-menu{ display:flex; }
+  .mobile-menu a{ font-family:'Fraunces',serif; font-size:1.6rem; color:var(--charcoal); }
+  .mobile-menu .mm-enquire{ font-family:'Inter',sans-serif; font-size:0.85rem; letter-spacing:0.08em; text-transform:uppercase; margin-top:16px; padding:14px 30px; background:var(--charcoal); color:var(--white); }
 
   .hero{
     height:100vh; position:relative; display:flex; flex-direction:column; justify-content:flex-end;
@@ -116,10 +124,8 @@
   .dev-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:26px; margin-top:40px; }
   .dev-card{ cursor:pointer; }
   .dev-card .img{ aspect-ratio:4/3.2; position:relative; overflow:hidden; margin-bottom:18px; }
-  .dev-card .img > div{ position:absolute; inset:0; transition:transform .8s ease; }
-  .dev-card:hover .img > div{ transform:scale(1.04); }
-  .dev-card .veil{ position:absolute; inset:0; background:var(--white); opacity:0.3; transition:opacity .5s ease; }
-  .dev-card:hover .veil{ opacity:0; }
+  .dev-card .img > div{ position:absolute; inset:0; transition:transform .8s ease, filter .6s ease; filter:grayscale(1); }
+  .dev-card:hover .img > div, .dev-card:active .img > div{ transform:scale(1.04); filter:grayscale(0); }
   .dev-card .status-tag{ position:absolute; top:16px; left:16px; background:rgba(250,248,243,0.92); color:var(--charcoal); padding:6px 12px; font-size:0.68rem; letter-spacing:0.08em; text-transform:uppercase; }
   .dev-card h3{ font-size:1.2rem; margin-bottom:4px; transition:transform .3s ease; }
   .dev-card:hover h3{ transform:translateY(-2px); }
@@ -204,12 +210,15 @@
   .about-principles h3{ font-size:1.5rem; margin-bottom:12px; }
   .about-principles p{ color:var(--ink-soft); font-size:0.92rem; }
 
-  footer{ max-width:1320px; margin:0 auto; padding:44px 40px 28px; }
-  .footer-row{ display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:18px; padding-bottom:22px; border-bottom:1px solid var(--line); }
+  footer{ max-width:1320px; margin:0 auto; padding:44px 40px 28px; text-align:center; }
+  .footer-row{ display:flex; flex-direction:column; align-items:center; gap:18px; padding-bottom:22px; border-bottom:1px solid var(--line); }
   footer .logo{ font-size:1.05rem; color:var(--charcoal); }
-  .footer-links{ display:flex; gap:20px; flex-wrap:wrap; font-size:0.82rem; }
+  .footer-links{ display:flex; gap:20px; flex-wrap:wrap; font-size:0.82rem; justify-content:center; }
   .footer-links a{ color:var(--ink-soft); }
   .footer-links a:hover{ color:var(--charcoal); }
+  .footer-social{ display:flex; gap:16px; justify-content:center; }
+  .footer-social a{ color:var(--grey); display:flex; transition:color .2s; }
+  .footer-social a:hover{ color:var(--charcoal); }
   .footer-bottom{ padding-top:18px; font-size:0.74rem; color:var(--ink-faint); }
 
   @media (max-width:900px){
@@ -247,6 +256,15 @@
     </div>
     <button class="burger" onclick="document.body.classList.toggle('menu-open')"><span></span><span></span><span></span></button>
   </nav>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#/">Home</a>
+    <a href="#/category/guesthouse">Guest House</a>
+    <a href="#/category/homerent">Home Rent</a>
+    <a href="#/category/kost">Kost</a>
+    <a href="#/category/land">Land</a>
+    <a href="#/about">About Us</a>
+    <a class="mm-enquire" id="mobile-enquire" target="_blank">Enquire</a>
+  </div>
 </header>
 
 <div id="view"></div>
@@ -399,7 +417,7 @@ function homeView(){
     <div class="dev-grid">
       ${developments.map((d,i)=>`
         <div class="dev-card reveal" onclick="location.hash='#/development/${d.id}'">
-          <div class="img"><div style="${photo(d.img)}"></div><div class="veil"></div><div class="status-tag">${d.status}</div></div>
+          <div class="img"><div style="${photo(d.img)}"></div><div class="status-tag">${d.status}</div></div>
           <h3 class="serif">${d.name}</h3>
           <div class="loc">${d.loc} · ${d.type}</div>
           <div class="view">View Project <span class="arrow">→</span></div>
@@ -598,10 +616,16 @@ function footerHtml(){
       <div class="footer-links">
         <a href="#/">Home</a><a href="#/category/guesthouse">Guest House</a><a href="#/category/homerent">Home Rent</a><a href="#/category/kost">Kost</a><a href="#/category/land">Land</a><a href="#/about">About</a>
       </div>
-      <div class="footer-links">
-        <a href="${waLink('Hi MIUTA Property')}" target="_blank">WhatsApp</a>
-        <a href="mailto:hello@miutaproperty.com">Email</a>
-        <a href="https://instagram.com/miuta.property" target="_blank">Instagram</a>
+      <div class="footer-social">
+        <a href="${waLink('Hi MIUTA Property')}" target="_blank" aria-label="WhatsApp" title="WhatsApp">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20.5 11.9c0 4.7-3.9 8.5-8.6 8.5-1.5 0-2.9-.4-4.1-1.1L3 20.5l1.2-4.6a8.4 8.4 0 0 1-1.3-4.5c0-4.7 3.9-8.5 8.6-8.5s8.6 3.8 8.6 8.5z"/><path d="M8.7 8.4c.2-.5.4-.5.6-.5h.5c.2 0 .4 0 .5.4.2.5.6 1.5.6 1.6.1.1.1.3 0 .4-.1.2-.1.3-.3.4-.1.2-.3.3-.4.5-.1.1-.3.3-.1.6.2.3.8 1.3 1.8 2.1 1.2 1 2.1 1.4 2.5 1.5.2.1.4.1.5-.1.2-.2.6-.7.8-.9.2-.2.3-.2.5-.1l1.5.7c.2.1.4.2.4.3.1.2.1.9-.2 1.4-.3.6-1.5 1.1-2.1 1.1-.5.1-1.2.1-1.9-.1-.4-.1-1-.3-1.7-.6-3-1.3-4.9-4.3-5.1-4.5-.1-.2-1.2-1.6-1.2-3.1 0-1.4.7-2.1 1-2.4z"/></svg>
+        </a>
+        <a href="mailto:hello@miutaproperty.com" aria-label="Email" title="Email">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="1.5"/><path d="M3.5 6.5 12 13l8.5-6.5"/></svg>
+        </a>
+        <a href="https://instagram.com/miuta.property" target="_blank" aria-label="Instagram" title="Instagram">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3.5" y="3.5" width="17" height="17" rx="4.5"/><circle cx="12" cy="12" r="3.6"/><circle cx="17.2" cy="6.8" r="0.9" fill="currentColor" stroke="none"/></svg>
+        </a>
       </div>
     </div>
     <div class="footer-bottom">© 2026 MIUTA Property. All Rights Reserved.</div>
@@ -696,6 +720,11 @@ function initLightboxSwipe(){
     startX = null;
   }, {passive:true});
 }
+
+byId('mobile-enquire').href = waLink('Hi MIUTA Property, I would like to know more about your collection.');
+document.querySelectorAll('.mobile-menu a').forEach(a=>{
+  a.addEventListener('click', ()=> document.body.classList.remove('menu-open'));
+});
 
 render();
 </script>
